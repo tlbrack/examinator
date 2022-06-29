@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_29_020602) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_29_201946) do
+  create_table "api_logs", force: :cascade do |t|
+    t.string "ip"
+    t.string "request_uri"
+    t.string "request_method"
+    t.text "request_body"
+    t.text "request_params"
+    t.text "response_body"
+    t.string "response_status_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "colleges", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -22,6 +34,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_29_020602) do
     t.datetime "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "exam_id"
+    t.index ["exam_id"], name: "index_exam_windows_on_exam_id"
   end
 
   create_table "exams", force: :cascade do |t|
@@ -36,6 +50,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_29_020602) do
     t.datetime "starts_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "exam_id"
+    t.index ["exam_id"], name: "index_user_exams_on_exam_id"
+    t.index ["user_id"], name: "index_user_exams_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
