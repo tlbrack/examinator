@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :user_exams
   resources :exam_windows
   resources :exams
   resources :colleges
