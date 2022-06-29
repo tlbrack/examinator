@@ -20,7 +20,7 @@ RSpec.describe "/users", type: :request do
     {
       first_name: 'Joe',
       last_name: 'Smith',
-      phone_number: '+15555551212'
+      phone_number: '+16167175555'
     }
   }
 
@@ -92,7 +92,7 @@ RSpec.describe "/users", type: :request do
         {
           first_name: 'Jane',
           last_name: 'Deer',
-          phone_number: '+15555557878'
+          phone_number: '+16167177878'
         }
       }
 
@@ -103,7 +103,7 @@ RSpec.describe "/users", type: :request do
         user.reload
         expect(user.first_name).to eq 'Jane'
         expect(user.last_name).to eq 'Deer'
-        expect(user.phone_number).to eq '+15555557878'
+        expect(user.phone_number).to eq '+16167177878'
       end
 
       it "renders a JSON response with the user" do
