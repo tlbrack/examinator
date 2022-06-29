@@ -18,12 +18,17 @@ RSpec.describe "/exams", type: :request do
   # adjust the attributes here as well.
   let(:valid_attributes) {
     {
-      name: 'Midterm'
+      name: 'Midterm',
+      college_id: college.id
     }
   }
 
   let(:invalid_attributes) {
     skip("Add a hash of attributes invalid for your model")
+  }
+
+  let(:college) {
+    create(:college)
   }
 
   # This should return the minimal set of values that should be in the headers
