@@ -46,6 +46,6 @@ class ExamWindowsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def exam_window_params
-      params.require(:exam_window).permit(:starts_at, :ends_at)
+      params.require(:exam_window).permit(:starts_at, :ends_at, :exam_id)
     end
 end

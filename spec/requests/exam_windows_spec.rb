@@ -19,7 +19,8 @@ RSpec.describe "/exam_windows", type: :request do
   let(:valid_attributes) {
     {
       starts_at: 1.hour.ago,
-      ends_at: 1.hour.since
+      ends_at: 1.hour.since,
+      exam_id: exam.id
     }
   }
 
@@ -34,6 +35,8 @@ RSpec.describe "/exam_windows", type: :request do
   let(:valid_headers) {
     {}
   }
+
+  let!(:exam) { create(:exam) }
 
   describe "GET /index" do
     it "renders a successful response" do
