@@ -13,14 +13,16 @@ class UserExamsController < ApplicationController
     render json: @user_exam
   end
 
+  # Here's the specific endpoint requested in the challenge
+  # technically, it creates OR updates
   # POST /user_exams
   def create
-    @user_exam = UserExam.new(user_exam_params)
+    result = ScheduleUserExam.call(schedule_params: schedule_params)
 
-    if @user_exam.save
-      render json: @user_exam, status: :created, location: @user_exam
+    if result.success?
+      render json: result[:user_exam]
     else
-      render json: @user_exam.errors, status: :unprocessable_entity
+      render json: { error: result.error }, status: :unprocessable_entity
     end
   end
 
@@ -47,5 +49,22 @@ class UserExamsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_exam_params
       params.require(:user_exam).permit(:starts_at)
+    end
+
+    # params allowed per the challenge
+    # {  
+    #    first_name: String, 
+    #    last_name: String, 
+    #    phone_number: String, 
+    #    college_id: Integer, 
+    #    exam_id: Integer, 
+    #    start_time: DateTime 
+    #  }  
+    def schedule_params
+      # get back a hash instead of an array when requiring multiple params
+      # I might prefer moving the params under a 'user_exam' key, but sticking with requirements
+      %i[first_name last_name phone_number college_id exam_id start_time].each_with_object(params) do |key, obj|
+        obj.require(key)
+      end
     end
 end
