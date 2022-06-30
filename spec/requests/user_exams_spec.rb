@@ -164,6 +164,27 @@ RSpec.describe "/user_exams", type: :request do
       end
     end
   
+    context "with unparseable start time" do
+      let(:attributes) {
+        {
+          first_name: 'Jeff',
+          last_name: 'Blue',
+          phone_number: '6167170999',
+          college_id: college.id,
+          exam_id: exam.id,
+          start_time: '2022-02'
+        }
+      }
+
+      it "responds with an error" do
+        expect {
+          post user_exams_url, params: attributes, headers: valid_headers, as: :json
+        }.to change(UserExam, :count).by(0)
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.body).to match("Unable to parse start time.  Try ISO 8601 format.")
+      end
+    end
+
     context "with missing attribute" do
       it "raises an exception that would respond with errors for the new user_exam" do
         expect {

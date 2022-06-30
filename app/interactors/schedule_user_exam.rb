@@ -9,7 +9,7 @@
 #        phone_number: String, 
 #        college_id: Integer, 
 #        exam_id: Integer, 
-#        start_time: DateTime 
+#        start_time: DateTime (in String) 
 #     }  
 #
 # Effects:
@@ -21,6 +21,7 @@
 #   user_exam: [UserExam] - the scheduled examination instance
 #   college: [College]
 #   exam: [Exam]
+#   start_time: [DateTime] - parsed from corresponding parameter
 #
 class ScheduleUserExam
   include Interactor::Organizer
