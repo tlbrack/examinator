@@ -7,5 +7,3 @@ FactoryBot.define do
     ends_at { 1.day.since }
   end
 end
-
-
